@@ -28,6 +28,11 @@ const forms = (state) => {
                 });
           };
 
+          function closeEndWin(win){
+            document.querySelector(win).style.display = "none";
+            document.body.style.overflow = "";
+          }
+
           form.forEach(item => {
             item.addEventListener('submit', (e)=> {
                 e.preventDefault();
@@ -53,9 +58,17 @@ const forms = (state) => {
                 .catch(() => statusMessage.textContent = message.failure)
                 .finally(()=> {
                     clearInputs();
+                    closeEndWin("[data-calc='end'] > div");
+                    closeEndWin(".form-time > div");
                     setTimeout(()=>{
                         statusMessage.remove();
-                    }, 5000);
+                        document.querySelector("[data-calc='end'] > div").style.display = "block";
+                        document.querySelector(".form-time > div").style.display = "block";
+                        closeEndWin('.popup_calc_end');  
+                        closeEndWin('.popup');
+                        Object.keys(state).forEach(key => delete state[key]);
+                    }, 2000);
+
                 });
 
             });

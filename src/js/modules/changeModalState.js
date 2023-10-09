@@ -15,7 +15,7 @@ const changeModalState = (state) => {
                 item.addEventListener(event, ()=> {
                     switch(item.nodeName){
                         case 'SPAN':
-                            state[prop] = i;
+                            state[prop] = i + 1;
                             break;
                         case 'INPUT' :
                             if(item.getAttribute('type') === 'checkbox'){
@@ -34,6 +34,17 @@ const changeModalState = (state) => {
                             state[prop] = item.value;
                             break;
                     }
+                    if (!state.form || !state.width || !state.height) {
+                        document.querySelector('.popup_calc_button').setAttribute('disabled', true);
+                    }else if(state.form && state.width && state.height){
+                        document.querySelector('.popup_calc_button').removeAttribute('disabled');
+                    }
+                    if (!state.form || !state.width || !state.height ||!state.type || !state.profile) {
+                        document.querySelector('.popup_calc_profile_button').setAttribute('disabled', true);
+                    }else if(state.form && state.width && state.height && state.type && state.profile){
+                        document.querySelector('.popup_calc_profile_button').removeAttribute('disabled');
+                    }
+
                     console.log(state);
                 });
             });
